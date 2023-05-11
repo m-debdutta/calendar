@@ -1,28 +1,11 @@
 const heading = function (month, year) {
   const header = `${month} ${year}`;
-  const length = header.length;
-  const pad = 10 + Math.floor(length / 2);
+  const pad = 10 + Math.floor(header.length / 2);
 
   return header.padStart(pad);
 };
 
-const addPadding = function (times) {
-  let padding = new Array(times);
-
-  return padding.fill("  ");
-};
-
-const getDates = function (monthEndDate) {
-  let dates = new Array(monthEndDate);
-
-  for (let index = 0; index < dates.length; index++) {
-    dates[index] = (index + 1).toString().padStart(2);
-  }
-
-  return dates;
-};
-
-const formatCalander = function (calenderData) {
+const chunkIntoWeeks = function (calenderData) {
   const calender = [];
 
   for (let index = 0; index < calenderData.length; index += 7) {
@@ -32,28 +15,58 @@ const formatCalander = function (calenderData) {
 
   return calender;
 };
+
+const formatCalender = function (calender) {
+  const calenderData = chunkIntoWeeks(calender);
+
+  return calenderData
+    .map(function (lines) {
+      return lines.join(" ");
+    })
+    .join("\n");
+};
+
+const getEndDate = function (date) {
+  return date.getUTCDate();
+};
+
+const getFirstDayOfMonth = function (date) {
+  date.setUTCDate(1);
+  return date.getUTCDay();
+};
+
+const createPadding = function (times) {
+  let padding = new Array(times);
+
+  return padding.fill("  ");
+};
+
+const getDates = function (monthEndDate) {
+  let dates = new Array(monthEndDate).fill();
+
+  return dates.map(function (_, index) {
+    return (index + 1).toString().padStart(2);
+  });
+};
+
 const getMonthInfo = function (month, year) {
-  const presentDate = new Date();
-  presentDate.setFullYear(year);
-  presentDate.setMonth(month);
+  const monthStartsOn = new Date(year, month);
 
-  presentDate.setDate(0);
-  const monthEndDate = presentDate.getDate();
+  const endDate = getEndDate(monthStartsOn);
+  const startDay = getFirstDayOfMonth(monthStartsOn);
 
-  presentDate.setDate(1);
-  const startDay = presentDate.getDay();
-
-  return { monthEndDate, startDay };
+  return { endDate, startDay };
 };
 
 const makeCalender = function (month, year) {
-  const { monthEndDate, startDay } = getMonthInfo(month, year);
-  const dates = getDates(monthEndDate);
-  const padding = addPadding(startDay);
+  const { endDate, startDay } = getMonthInfo(month, year);
+
+  const dates = getDates(endDate);
+  const padding = createPadding(startDay);
 
   const calender = padding.concat(dates);
 
-  return formatCalander(calender);
+  return formatCalender(calender);
 };
 
 const getMonthName = function (monthCode) {
@@ -78,9 +91,10 @@ const getMonthName = function (monthCode) {
 const display = function (calender, month, year) {
   console.log(heading(month, year));
   console.log("Su Mo Tu We Th Fr Sa");
-  console.log(calender.join("\n").replaceAll(",", " "));
+  console.log(calender);
 };
 
-exports.makeCalender = makeCalender;
 exports.display = display;
+exports.makeCalender = makeCalender;
 exports.getMonthName = getMonthName;
+exports.getMonthInfo = getMonthInfo;
