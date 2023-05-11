@@ -14,11 +14,27 @@ Su Mo Tu We Th Fr Sa
 Data should look like :
 
 {
-months:[days]
+date : day
 }
 
+[su, mo, tu, we, th, fr, sa]
+
 {
-mo: [1,8,15,22,29],
-tu: [2,9,16,23,30],
-we: [3,10,17,24,31]
+1: 1,
+2: 2,
+3: 3,
+.
+.
+.
+31: 3
 }
+
+# make class Day
+
+Q: how to interact with a date?
+
+->
+
+jan = Month(1)
+jan.day
+jan.updateDay()
