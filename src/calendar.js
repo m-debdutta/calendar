@@ -95,3 +95,5 @@ exports.display = display;
 exports.makecalendar = makecalendar;
 exports.getMonthName = getMonthName;
 exports.getMonthInfo = getMonthInfo;
+exports.chunkIntoWeeks = chunkIntoWeeks;
+exports.createPadding = createPadding;

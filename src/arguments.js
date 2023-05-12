@@ -30,5 +30,6 @@ month should be within: [1...12]`;
 	console.error(usage);
 };
 
+exports.isValidInput = isValidInput;
 exports.showUsage = showUsage;
 exports.parseArguments = parseArguments;
