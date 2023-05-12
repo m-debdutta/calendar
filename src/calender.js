@@ -36,9 +36,7 @@ const getFirstDayOfMonth = function (date) {
 };
 
 const createPadding = function (times) {
-  let padding = new Array(times);
-
-  return padding.fill("  ");
+  return new Array(times).fill("  ");
 };
 
 const getDates = function (monthEndDate) {
@@ -60,7 +58,6 @@ const getMonthInfo = function (month, year) {
 
 const makeCalender = function (month, year) {
   const { endDate, startDay } = getMonthInfo(month, year);
-
   const dates = getDates(endDate);
   const padding = createPadding(startDay);
 
