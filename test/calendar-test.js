@@ -1,7 +1,7 @@
 const { describe, it } = require("node:test");
 const { deepStrictEqual, strictEqual } = require("assert");
 
-const { getMonthName, getMonthInfo } = require("../src/calender.js");
+const { getMonthName, getMonthInfo } = require("../src/calendar.js");
 
 describe("getMonthName", function () {
   it("should give the week days", function () {
