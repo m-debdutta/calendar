@@ -82,7 +82,7 @@ const getMonthName = function (monthCode) {
 		"December",
 	];
 
-	return months[monthCode];
+	return months[monthCode - 1];
 };
 
 const display = function (calendar, month, year) {
